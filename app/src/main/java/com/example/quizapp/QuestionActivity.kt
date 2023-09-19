@@ -18,7 +18,7 @@ class QuestionActivity : AppCompatActivity() {
     private var score:Int=0
     private var currentPosition:Int=1
     private var questionList:ArrayList<QuestionData> ? = null
-    private var selecedOption:Int=0
+    private var selectedOption:Int=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question)
@@ -42,14 +42,14 @@ class QuestionActivity : AppCompatActivity() {
             selectedOptionStyle(opt_4,4)
         }
         submit.setOnClickListener {
-            if(selecedOption!=0)
+            if(selectedOption!=0)
             {
                 val question=questionList!![currentPosition-1]
-                if(selecedOption!=question.correct_ans)
+                if(selectedOption!=question.correct_ans)
                 {
-                   setColor(selecedOption,R.drawable.wrong_question_option)
+                   setColor(selectedOption,R.drawable.wrong_question_option)
                 }else{
-                    score++;
+                    score++
                 }
                 setColor(question.correct_ans,R.drawable.correct_question_option)
                 if(currentPosition==questionList!!.size)
@@ -63,7 +63,7 @@ class QuestionActivity : AppCompatActivity() {
                         setQuestion()
                     }
                     else->{
-                       var intent= Intent(this,Result::class.java)
+                       val intent= Intent(this,Result::class.java)
                         intent.putExtra(setData.name,Name.toString())
                         intent.putExtra(setData.score,score.toString())
                         intent.putExtra("total size",questionList!!.size.toString())
@@ -73,7 +73,7 @@ class QuestionActivity : AppCompatActivity() {
                     }
                 }
             }
-            selecedOption=0
+            selectedOption=0
         }
     }
     fun setColor(opt:Int,color:Int){
@@ -107,7 +107,7 @@ class QuestionActivity : AppCompatActivity() {
         opt_4.text=question.option_four
     }
     fun setOptionStyle(){
-        var optionList:ArrayList<TextView> = arrayListOf()
+        val optionList:ArrayList<TextView> = arrayListOf()
         optionList.add(0,opt_1)
         optionList.add(1,opt_2)
         optionList.add(2,opt_3)
@@ -121,7 +121,7 @@ class QuestionActivity : AppCompatActivity() {
     }
     fun selectedOptionStyle(view:TextView,opt:Int){
         setOptionStyle()
-        selecedOption=opt
+        selectedOption=opt
         view.background=ContextCompat.getDrawable(this,R.drawable.selected_question_option)
         view.typeface= Typeface.DEFAULT_BOLD
         view.setTextColor(Color.parseColor("#000000"))
